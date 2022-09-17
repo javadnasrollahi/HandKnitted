@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -20,53 +22,71 @@ void main() {
     title: Strings.AppTitle,
     home: Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightBlueAccent,
         title: Text(Strings.AppName),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: (){
+              SystemNavigator.pop();
+          },
+            icon: Icon(
+                Icons.power_settings_new
+            ),
+            color: Colors.red,
+          ),
+        ],
       ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(25),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("قیمت خام",style: TextStyle(fontSize: 20),),
-                      const SizedBox(
-                        width: 50,
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Colors.grey.withOpacity(0.4),
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("فروش",style: TextStyle(fontSize: 20),),
+                              const Spacer(flex: 1,),
+                              Obx(() => Text(_controller.foroshPrice.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),))
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("دستمزد",style: TextStyle(fontSize: 20),),
+                              const Spacer(flex: 1,),
+                              Obx(() => Text(_controller.dastMozd.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),))
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("قیمت خام",style: TextStyle(fontSize: 20),),
+                              const Spacer(flex: 1,),
+                              Obx(() =>
+                                  Text(_controller.gheymatKham.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                      Obx(() =>
-                        Text(_controller.gheymatKham.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)
-                      )
-                    ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("دستمزد",style: TextStyle(fontSize: 20),),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                      Obx(() => Text(_controller.dastMozd.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("فروش",style: TextStyle(fontSize: 20),),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                      Obx(() => Text(_controller.foroshPrice.toStringAsFixed(2).toString(),style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),))
-                    ],
-                  ),
+
                   const SizedBox(
                     height: 10,
                   ),
